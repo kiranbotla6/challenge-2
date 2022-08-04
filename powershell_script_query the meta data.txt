@@ -1,0 +1,12 @@
+Function Query-InstanceEndpoint
+{
+$ImdsServer = "http://169.254.169.254"
+$InstanceEndpoint = $ImdsServer+"/metadata/instance"
+$uri = $InstanceEndpoint+"?api-version=2021-02-01"
+$result=Invoke-RestMethod –Method GET –Uri $uri -Headers @{"Metadata"="True"}
+return $result
+}
+
+# Make Instance call and print the response in JSON Format
+$result = Query-InstanceEndpoint
+$result | ConvertTo-JSON –Depth 99
